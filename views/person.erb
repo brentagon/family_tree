@@ -1,0 +1,106 @@
+<h1> View/Update <%= @person.name() %> </h1>
+
+<% if @members.any? %>
+<h3>Add a parent to <%= @person.name() %>:</h3>
+  <form action="/members/<%= @person.id %>/add_parent" method="post">
+    <label for="parent_id">Select Parent</label>
+    <select id="parent_id" name="parent_id" type="text">
+    <% @members.each() do |member| %>
+    <!-- <% if (member != @person) &&  @person.parents_kids.include?(member) == false &&  @person.kids_parents.include?(member) == false %> -->
+        <option value="<%= member.id()%>"> <%= member.name() %> </option>
+      <!-- <% end %> -->
+     <% end %>
+  </select>
+  <button type="submit">Add Parent</button>
+  </form>
+
+  <h3>Add a child to <%= @person.name() %>:</h3>
+    <form action="/members/<%= @person.id %>/add_child" method="post">
+      <label for="child_id">Select Child</label>
+      <select id="child_id" name="child_id" type="text">
+      <% @members.each() do |member| %>
+        <!-- <% if (member != @person) &&  @person.parents_kids.include?(member) == false &&  @person.kids_parents.include?(member) == false %> -->
+            <option value="<%= member.id()%>"> <%= member.name() %> </option>
+        <% end %>
+      <!-- <% end %> -->
+    </select>
+    <button type="submit">Add Child</button>
+    </form>
+<% end %>
+    <form action="/members/<%= @person.id() %>/create_child" method="post">
+      <input name="_method" type="hidden" value="patch">
+      <label for="new_child">Create Child:</label>
+      <input id="new_child" name="new_child" text="text">
+      <button type="submit">Create</button>
+    </form>
+
+    <form action="/members/<%= @person.id() %>/create_parent" method="post">
+      <input name="_method" type="hidden" value="patch">
+      <label for="new_parent">Create Parent:</label>
+      <input id="new_parent" name="new_parent" text="text">
+      <button type="submit">Create</button>
+    </form>
+
+  <h3>This person's relations:</h3>
+  <% if @person.kids_parents.any? %>
+      <p>Parents:</p>
+      <ul>
+      <% @person.kids_parents.each do |parent| %>
+          <li><%= parent.name %> </li>
+      <% end %>
+      </ul>
+      <% else %>
+        <p>This person has no parents. </p>
+  <% end %>
+  <% if @person.parents_kids.any? %>
+      <p>Children:</p>
+      <ul>
+      <% @person.parents_kids.each do |kid| %>
+          <li><%= kid.name %> </li>
+      <% end %>
+      </ul>
+      <% else %>
+        <p>This person has no children. </p>
+  <% end %>
+  <% if @person.parents_kids.any? %>
+      <p>Siblings:</p>
+      <ul>
+      <% @person.siblings.each do |sibling| %>
+          <li><%= sibling.name %> </li>
+      <% end %>
+      </ul>
+      <% else %>
+        <p>This person has no siblings. </p>
+  <% end %>
+  <% if @person.grandparents.any? %>
+      <p>Grandparents:</p>
+      <ul>
+      <% @person.grandparents.each do |grandparent| %>
+          <li><%= grandparent.name %> </li>
+      <% end %>
+      </ul>
+      <% else %>
+        <p>This person has no grandparents. </p>
+  <% end %>
+  <% if @person.unclesaunts.any? %>
+      <p>Uncles and Aunts:</p>
+      <ul>
+      <% @person.unclesaunts.each do |uncleaunt| %>
+          <li><%= uncleaunt.name %> </li>
+      <% end %>
+      </ul>
+      <% else %>
+        <p>This person has no uncles or aunts. </p>
+  <% end %>
+  <% if @person.cousins.any? %>
+      <p>Cousins:</p>
+      <ul>
+      <% @person.cousins.each do |cousin| %>
+          <li><%= cousin.name %> </li>
+      <% end %>
+      </ul>
+      <% else %>
+        <p>This person has no cousins. </p>
+  <% end %>
+
+  <a href="/"> Go Home! </a>

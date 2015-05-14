@@ -32,7 +32,7 @@ class Person < ActiveRecord::Base
         all_relations.each do |relation|
             if relation.parent_id == parent
                 if relation.child_id != self.id
-                    return_array.push(relation.child_id)
+                    return_array.push(Person.find(relation.child_id))
                 end
             end
         end
@@ -55,8 +55,8 @@ class Person < ActiveRecord::Base
         unclesaunts = self.unclesaunts
         cousins = []
         unclesaunts.each do |uncleaunt|
-          Person.find(uncleaunt).parents_kids.each do |cousin|
-              cousins.push(cousin.id)
+          uncleaunt.parents_kids.each do |cousin|
+              cousins.push(cousin)
           end
         end
         cousins
@@ -67,10 +67,22 @@ class Person < ActiveRecord::Base
         grandparents = []
         parents.each do |parent|
         parent.kids_parents.each do |gp|
-            grandparents.push(gp.id)
+            grandparents.push(gp)
         end
     end
     grandparents
+    end
+
+    define_singleton_method(:clear_all) do
+
+        Person.all().each() do |person|
+          person.destroy()
+        end
+
+        Family.all().each() do |parent|
+          parent.destroy()
+        end
+
     end
 
 end

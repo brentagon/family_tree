@@ -27,7 +27,7 @@ describe(Person) do
         test_sibling_1.kids_parents.push(test_parent)
         test_sibling_2.kids_parents.push(test_parent)
         test_sibling_3.kids_parents.push(test_parent)
-        expect(test_sibling_1.siblings).to eq([test_sibling_2.id, test_sibling_3.id])
+        expect(test_sibling_1.siblings).to eq([test_sibling_2, test_sibling_3])
     end
 
     it("tells you its uncles and aunts") do
@@ -38,7 +38,7 @@ describe(Person) do
         test_sibling_1.kids_parents.push(test_parent_1)
         test_parent_1.kids_parents.push(test_grandparent_1)
         test_parent_2.kids_parents.push(test_grandparent_1)
-        expect(test_sibling_1.unclesaunts).to eq([test_parent_2.id])
+        expect(test_sibling_1.unclesaunts).to eq([test_parent_2])
     end
 
     it("tells you its cousins") do
@@ -51,7 +51,7 @@ describe(Person) do
         test_parent_1.kids_parents.push(test_grandparent_1)
         test_parent_2.kids_parents.push(test_grandparent_1)
         test_sibling_2.kids_parents.push(test_parent_2)
-        expect(test_sibling_1.cousins).to eq([test_sibling_2.id])
+        expect(test_sibling_1.cousins).to eq([test_sibling_2])
     end
 
     it("tells you its grandparents") do
@@ -64,7 +64,7 @@ describe(Person) do
         test_parent.kids_parents.push(test_grandparent)
         test_child.kids_parents.push(test_parent2)
         test_parent2.kids_parents.push(test_grandparent2)
-        expect(test_child.grandparents).to eq([test_grandparent.id, test_grandparent2.id])
+        expect(test_child.grandparents).to eq([test_grandparent, test_grandparent2])
     end
 
 end

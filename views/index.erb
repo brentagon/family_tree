@@ -1,0 +1,24 @@
+<h1>Family Tree Maker</h1>
+<p>Add a family member:</p>
+
+<form action="/" method="post">
+    <label for="name">Person's name:</label>
+    <input id="name" name="name" type="text">
+    <button type="submit">Add person</button>
+</form>
+
+<p>Your current family members:</p>
+<% if @members.any? %>
+  <p>Click a family member to view them</p>
+  <ul>
+      <% @members.each() do |member| %>
+      <li><%= member.name %> <a href="/members/<%= member.id %>">View person</a></li>
+      <% end %>
+  </ul>
+  <% else %>
+  <p> There are no members added to your family yet.</p>
+  <% end %>
+
+
+  <p> Delete all family members: </p>
+  <a href="/deleted" type="submit" method="post">Delete</a>
