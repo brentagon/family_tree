@@ -16,23 +16,8 @@ class Person < ActiveRecord::Base
     end
 
     def add_parent(name)
-        #child = self
         parent = self.kids_parents.create(:name => name)
-    #    child.parents_children.create(:child_id => child.id, :parent_id => parent.id)
-    #    parent.childrens_parents.update(:child_id => child.id, :parent_id => parent.id)
-    #    child.update(parent_id: parent.id)
 
-    #    # self.kids_parents.create({:name => name})
-    #    # parent.parents_kids.where(child_id: nil).first.update(child_id: child.id)
-        # family = Family.where(parent_id: parent.id, child_id: nil)
-        # family.first.update(child_id: child.id)
-        # parent.parents_kids.push(child)
-
-        # Family.where(parent_id: parent.id, child_id: nil).first.update(child_id: child.id)
-        # parent_id = Family.where(parent_id: parent.id, child_id: child.id).first.parent_id
-        # parent_1 = Person.find(parent_id)
-    #    binding.pry
-        parent
     end
 
     def siblings
@@ -52,7 +37,31 @@ class Person < ActiveRecord::Base
             end
         end
         return_array
-
     end
+
+    def unclesaunts
+    all_relations = Family.all
+    parents = self.kids_parents
+    parent_sibs = []
+    parents.each do |parent|
+        parent.siblings.each do |sibling|
+            parent_sibs.push(sibling)
+        end
+    end
+    parent_sibs
+    end
+
+    def cousins
+        unclesaunts = self.unclesaunts
+        cousins = []
+        unclesaunts.each do |uncleaunt|
+            binding.pry
+          Person.find(uncleaunt).parents_kids.each do |cousin|
+              cousins.push(cousin.id)
+          end
+        end
+        cousins
+    end
+
 
 end
