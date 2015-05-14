@@ -10,9 +10,10 @@ describe(Person) do
     end
     it('will check for existence of parent(s)') do
         child_1 = Person.create(:name => 'Susie')
-    #    parent_1 = child_1.kids_parents.create({:name => 'Frank'})
         parent_1 = child_1.add_parent('Frank')
+binding.pry
         expect(child_1.has_parents?)
         expect(parent_1.has_children?)
+       binding.pry
     end
 end
