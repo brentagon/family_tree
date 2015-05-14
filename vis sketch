@@ -1,0 +1,12 @@
+family tree vis:
+
+make array people_who_have_no_parents
+
+people_who_have_no_parents.each do person
+  print "Progenitor:" person_name
+    if exist children.each do |child|
+        if exist children.each do |child|
+      print "N generation child: counter#
+      person.children.each do child
+       print "child"
+        else
