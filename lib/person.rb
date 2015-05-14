@@ -55,7 +55,6 @@ class Person < ActiveRecord::Base
         unclesaunts = self.unclesaunts
         cousins = []
         unclesaunts.each do |uncleaunt|
-            binding.pry
           Person.find(uncleaunt).parents_kids.each do |cousin|
               cousins.push(cousin.id)
           end
@@ -63,5 +62,15 @@ class Person < ActiveRecord::Base
         cousins
     end
 
+    def grandparents
+        parents = self.kids_parents
+        grandparents = []
+        parents.each do |parent|
+        parent.kids_parents.each do |gp|
+            grandparents.push(gp.id)
+        end
+    end
+    grandparents
+    end
 
 end

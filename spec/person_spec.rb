@@ -51,11 +51,20 @@ describe(Person) do
         test_parent_1.kids_parents.push(test_grandparent_1)
         test_parent_2.kids_parents.push(test_grandparent_1)
         test_sibling_2.kids_parents.push(test_parent_2)
-    #    binding.pry
         expect(test_sibling_1.cousins).to eq([test_sibling_2.id])
     end
 
     it("tells you its grandparents") do
+        test_child = Person.create(:name => "Zim")
+        test_parent = Person.create(:name => "Noah")
+        test_parent2 = Person.create(:name => "Noah")
+        test_grandparent = Person.create(:name => "Yahweh")
+        test_grandparent2 = Person.create(:name => "Yahweh")
+        test_child.kids_parents.push(test_parent)
+        test_parent.kids_parents.push(test_grandparent)
+        test_child.kids_parents.push(test_parent2)
+        test_parent2.kids_parents.push(test_grandparent2)
+        expect(test_child.grandparents).to eq([test_grandparent.id, test_grandparent2.id])
     end
 
 end
