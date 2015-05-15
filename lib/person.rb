@@ -21,26 +21,19 @@ class Person < ActiveRecord::Base
     end
 
     def siblings
-        all_relations = Family.all
-        parent = 0
-        all_relations.each do |relation|
-            if relation.child_id == self.id
-                parent = relation.parent_id
-            end
-        end
+        parents = self.kids_parents
         return_array = []
-        all_relations.each do |relation|
-            if relation.parent_id == parent
-                if relation.child_id != self.id
-                    return_array.push(Person.find(relation.child_id))
-                end
+        parents.each do |relation|
+            relation.parents_kids.each do |kid|
+              if kid != self
+                return_array.push(kid)
+              end
             end
         end
         return_array
     end
 
     def unclesaunts
-    all_relations = Family.all
     parents = self.kids_parents
     parent_sibs = []
     parents.each do |parent|

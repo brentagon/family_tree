@@ -6,10 +6,7 @@
     <label for="parent_id">Select Parent</label>
     <select id="parent_id" name="parent_id" type="text">
     <% @members.each() do |member| %>
-    <!-- <% if (member != @person) &&  @person.parents_kids.include?(member) == false &&  @person.kids_parents.include?(member) == false %> -->
-        <option value="<%= member.id()%>"> <%= member.name() %> </option>
-      <!-- <% end %> -->
-     <% end %>
+        <option value="<%= member.id()%>"> <%= member.name() %> </option>     <% end %>
   </select>
   <button type="submit">Add Parent</button>
   </form>
@@ -19,10 +16,9 @@
       <label for="child_id">Select Child</label>
       <select id="child_id" name="child_id" type="text">
       <% @members.each() do |member| %>
-        <!-- <% if (member != @person) &&  @person.parents_kids.include?(member) == false &&  @person.kids_parents.include?(member) == false %> -->
+
             <option value="<%= member.id()%>"> <%= member.name() %> </option>
         <% end %>
-      <!-- <% end %> -->
     </select>
     <button type="submit">Add Child</button>
     </form>
@@ -62,7 +58,7 @@
       <% else %>
         <p>This person has no children. </p>
   <% end %>
-  <% if @person.parents_kids.any? %>
+  <% if @person.siblings.any? %>
       <p>Siblings:</p>
       <ul>
       <% @person.siblings.each do |sibling| %>

@@ -28,11 +28,9 @@ end
 
 post('/members/:id/add_parent') do
     @id = params.fetch("id")
-    # if params.fetch("parent_id") != nil
     @person = Person.find(@id)
     parent = Person.find(params.fetch("parent_id"))
     @person.kids_parents.push(parent)
-    # end
     redirect("/members/#{@id}")
 end
 
@@ -46,21 +44,17 @@ end
 
 patch('/members/:id/create_parent') do
     @id = params.fetch("id")
-    # if params.fetch("new_parent") != ""
     @person = Person.find(@id)
     parent = Person.create(:name => params.fetch("new_parent"))
     @person.kids_parents.push(parent)
-    # end
     redirect("/members/#{@id}")
 end
 
 patch('/members/:id/create_child') do
     @id = params.fetch("id")
-    # if params.fetch("new_child") != ""
     @person = Person.find(@id)
     child = Person.create(:name => params.fetch("new_child"))
     @person.parents_kids.push(child)
-    # end
     redirect("/members/#{@id}")
 end
 
